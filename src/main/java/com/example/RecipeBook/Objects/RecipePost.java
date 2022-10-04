@@ -11,12 +11,12 @@ public class RecipePost {
 
 
 
-     private long prep_time_id;//=1;
+     private long prep_time_id;
      private long nb_of_servings;
  //   private long image_id = 0;//Not yet implemented TODO change this
-     private String description;//="Empty";
+     private String description;
      private long user_id;//For now hard coded at 1 TODO change this
-     private JsonArray tags;//=null;
+     private JsonArray tags;
 
 
 
@@ -44,11 +44,6 @@ public class RecipePost {
     public ArrayList<Ingredient> getIngredients() {
     return ingredients;
     }
-//    amount
-//            ingredient
-//    recipe_id
-//            recipe_name
-//    unit_of_measure
     public void setIngredients(JsonArray ingredients) {
         ingredients.forEach(ingredient -> {
             this.ingredients.add(new Ingredient(
@@ -96,14 +91,7 @@ public class RecipePost {
         this.difficulty_id = difficulty_id;
     }
 
-//    public long getImage_id() {
-//        return image_id;
-//    }
-
-//    public void setImage_id(long image_id) {
-//        this.image_id = image_id;
-//    }
-public JsonArray getTags() {
+    public JsonArray getTags() {
     return tags;
 }
 
@@ -126,13 +114,5 @@ public JsonArray getTags() {
     public void setUser_id(long user_id) {
         this.user_id = user_id;
     }
-
-
-
-    //Create a JSON template that matches this class in json format not in java
-    //This is used to create the JSON object that will be sent to the server
-
-
-
 
 }
