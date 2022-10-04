@@ -14,17 +14,19 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+
 public class DBReader {
     public static final CardJSONAdapter cardJsonAdapter = new CardJSONAdapter();
     public final Gson gsonGet = new GsonBuilder().registerTypeAdapter(Card.class, cardJsonAdapter).serializeNulls().create();
-    final Connection connection = RESTControllerImpl.connection;
+    final Connection connection = RESTControllerImpl.getInstance().connection;
 
     public TagsCheckboxMenuView getTagsFromDB() {
         String sql = "SELECT * FROM TagsView";
         TagsCheckboxMenuView tagsCheckboxMenuView = new TagsCheckboxMenuView();
         try {
-            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            PreparedStatement preparedStatement = RESTControllerImpl.connection.prepareStatement(sql);
             ResultSet resultSet = preparedStatement.executeQuery();
+
 
             while (resultSet.next()) {
                 tagsCheckboxMenuView.getTags().add(resultSet.getString("category_id"));
@@ -32,6 +34,7 @@ public class DBReader {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
         return tagsCheckboxMenuView;
     }
 

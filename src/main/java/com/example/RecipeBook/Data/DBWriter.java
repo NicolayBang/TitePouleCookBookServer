@@ -26,7 +26,7 @@ public class DBWriter {
     }
     void init() {
         recipeHandler = RESTControllerImpl.getInstance();
-     //   connectToDB();
+    //    connection = (Connection) RESTControllerImpl.connection;
     }
 //    public void connectToDB() {
 //        try {
