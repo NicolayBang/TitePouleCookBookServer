@@ -19,22 +19,22 @@ public class DBWriter {
     public static final RecipePostJSONAdapter recipePostJSONAdapter = new RecipePostJSONAdapter();
     public final Gson gsonPost = new GsonBuilder().registerTypeAdapter(RecipePost.class, recipePostJSONAdapter).serializeNulls().create();
     public DBReader dbReader = new DBReader();
-    protected Connection connection;
+    protected Connection connection = (Connection) RESTControllerImpl.getInstance().connection;
     RESTControllerImpl recipeHandler;
     public DBWriter() {
         init();
     }
     void init() {
         recipeHandler = RESTControllerImpl.getInstance();
-        connectToDB();
+    //    connection = (Connection) RESTControllerImpl.connection;
     }
-    public void connectToDB() {
-        try {
-            connection = (Connection) DriverManager.getConnection("jdbc:mariadb://localhost:3306/recipe_db_v2", "root", "Roslyn06");
-        } catch (SQLException ignored) {
-
-        }
-    }
+//    public void connectToDB() {
+//        try {
+//            connection = (Connection) DriverManager.getConnection("jdbc:mariadb://localhost:3306/recipe_db_v2", "root", "Roslyn06");
+//        } catch (SQLException ignored) {
+//
+//        }
+//    }
     /**
      * Synchronized method that performs the write operation
      * @param sql statement

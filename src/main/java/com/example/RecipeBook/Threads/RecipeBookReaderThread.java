@@ -19,7 +19,7 @@ public class RecipeBookReaderThread extends Thread {
 
     public RecipeBookReaderThread() {
         recipeHandler = new RESTControllerImpl();
-        this.connection = RESTControllerImpl.connection;
+        this.connection = RESTControllerImpl.getInstance().connection;
     }
 
     //@Override
