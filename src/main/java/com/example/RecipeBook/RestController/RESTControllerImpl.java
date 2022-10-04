@@ -35,22 +35,22 @@ public class RESTControllerImpl implements RestListener, RestController {
         return recipeHandler;
     }
 
-//    public void connectToDB() {
-//        try {
-//            connection = DriverManager.getConnection
-//                    ("jdbc:mariadb://iu51mf0q32fkhfpl.cbetxkdyhwsb.us-east-1.rds.amazonaws.com:3306/l9wg8442wjqiydnn",
-//                            "h0t8uqbccnbr14zr", "a8s8zrqzymt4ny5a");
-//        } catch (SQLException e) {
-//
-//        }
-//    }
-public void connectToDB() {
-    try {
-        connection = DriverManager.getConnection("jdbc:mariadb://107.171.153.230:3306/recipe_db_v2", "root", "Roslyn06");
-    } catch (SQLException e) {
+    public void connectToDB() {
+        try {
+            connection = DriverManager.getConnection
+                    ("jdbc:mariadb://iu51mf0q32fkhfpl.cbetxkdyhwsb.us-east-1.rds.amazonaws.com:3306/l9wg8442wjqiydnn",
+                            "h0t8uqbccnbr14zr", "a8s8zrqzymt4ny5a");
+        } catch (SQLException e) {
 
+        }
     }
-}
+//public void connectToDB() {
+//    try {
+//        connection = DriverManager.getConnection("jdbc:mariadb://107.171.153.230:3306/recipe_db_v2", "root", "Roslyn06");
+//    } catch (SQLException e) {
+//
+//    }
+//}
 
     public DBReader getDBReader() {
         return new DBReader();
