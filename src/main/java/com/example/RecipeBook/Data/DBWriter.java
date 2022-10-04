@@ -1,8 +1,6 @@
 package com.example.RecipeBook.Data;
 
-import com.example.RecipeBook.JSONHandler.CardJSONAdapter;
 import com.example.RecipeBook.JSONHandler.RecipePostJSONAdapter;
-import com.example.RecipeBook.Objects.Card;
 import com.example.RecipeBook.Objects.RecipePost;
 import com.example.RecipeBook.RestController.RESTControllerImpl;
 import com.google.gson.Gson;
@@ -10,10 +8,8 @@ import com.google.gson.GsonBuilder;
 import org.mariadb.jdbc.Connection;
 
 import javax.ws.rs.core.Response;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Map;
 
 public class DBWriter {
     public static final RecipePostJSONAdapter recipePostJSONAdapter = new RecipePostJSONAdapter();
@@ -41,7 +37,7 @@ public class DBWriter {
      * @param columnLabel: if set to null, means no return value is expected (-1)
      * @return
      */
-    public synchronized long writeToDB(String sql, String columnLabel) {
+    public synchronized long toDB(String sql, String columnLabel) {
         try {
             ResultSet resultSet = connection.prepareStatement(sql).executeQuery();
             if (columnLabel == null) {
@@ -73,21 +69,24 @@ public class DBWriter {
 //        }
 //    }
     public void sendRecipeToDB(RecipePost recipe) {
-        String insertTitle = "INSERT INTO Title (title) VALUE ('" + recipe.getTitle() + "') RETURNING title_id";
-        long title_id = writeToDB(insertTitle, "title_id");
+        String insertTitle = "INSERT INTO Title (title) VALUE ('" + recipe.getTitle() + "')";
+        toDB(insertTitle, "title_id");
+        long title_id = toDB("SELECT LAST_INSERT_ID() as id", "id");
         //INSERT INTO Recipe (title_id,description,nb_of_servings, difficulty_id, user_id, prep_time_id)
         String insertDescription = "INSERT INTO Recipe (title_id,description,nb_of_servings, difficulty_id, user_id, prep_time_id) VALUE " +
                 "(" + title_id + ",'" + recipe.getDescription() + "'," + recipe.getNb_of_servings() + "," + recipe.getDifficulty_id() + ","
                 + recipe.getUser_id() + "," + recipe.getPrep_time_id() + ") RETURNING recipe_id ";//RETURNING recipe_id
-        long recipe_id = writeToDB(insertDescription, "recipe_id");
+        toDB(insertDescription, "recipe_id");
+        long recipe_id = toDB("SELECT LAST_INSERT_ID() as id", "id");
         addToFavourites(recipe_id, recipe.getUser_id());//TODO: remove this line, it is temporary, adds newly created recipe to favourites of user 1
 
         for (int i = 0; i < recipe.getTags().size(); i++) {
             String insertTag = "INSERT INTO Tags (recipe_id, category_id) VALUE (" + recipe_id + ",'" + recipe.getTags().get(i).getAsString() + "')";
-            writeToDB(insertTag, null);//RETURNING tags_id
+            toDB(insertTag, null);//RETURNING tags_id
         }
-        long ingredients_id = writeToDB("INSERT INTO Ingredients (recipe_id) VALUE (" + recipe_id + ")RETURNING ingredients_id",
-                "ingredients_id") ;   //
+        toDB("INSERT INTO Ingredients (recipe_id) VALUE (" + recipe_id + ")RETURNING ingredients_id",
+                "ingredients_id") ;
+        long ingredients_id =toDB("SELECT LAST_INSERT_ID() as id", "id");  //
 
        for (int i=0; i<recipe.getIngredients().size();i++){
            String unitName = recipe.getIngredients().get(i).getUnit();
@@ -102,16 +101,17 @@ public class DBWriter {
            String insertIngredients = "INSERT INTO Ingredient (ingredients_id, ingredient, unit_id, quantity) VALUE (" + ingredients_id + ",'"
                    + recipe.getIngredients().get(i).getName()
                    + "'," + unit_id +"," +recipe.getIngredients().get(i).getAmount() +")";
-           writeToDB(insertIngredients, null);//RETURNING tags_id
+           toDB(insertIngredients, null);//RETURNING tags_id
        }
-       long instructions_id = writeToDB("INSERT INTO Instructions (recipe_id) VALUE (" + recipe_id + ")RETURNING instructions_id",
-                    "instructions_id") ;   //
+        toDB("INSERT INTO Instructions (recipe_id) VALUE (" + recipe_id + ")RETURNING instructions_id",
+                "instructions_id") ;
+        long instructions_id = toDB("SELECT LAST_INSERT_ID() as id", "id");  //
             for (int i=0; i<recipe.getInstructions().size();i++){
                 String insertInstructions = "INSERT INTO Instruction (instructions_id, instruction, step_id) VALUE (" + instructions_id + ",'"
                         + recipe.getInstructions().get(i).getInstruction()
                         + "'," + i+1 +")";
 
-                writeToDB(insertInstructions, null);
+                toDB(insertInstructions, null);
             }
 
     }
@@ -133,7 +133,7 @@ public class DBWriter {
 
     public void addToFavourites(long recipe_id, long user_id){
         String insertFavourites = "INSERT INTO Favourites (recipe_id, user_id) VALUE (" + recipe_id + "," + user_id + ")";
-        writeToDB(insertFavourites, null);
+        toDB(insertFavourites, null);
     }
 
 //    private void sendTagsToDB(JsonArray tags) {
