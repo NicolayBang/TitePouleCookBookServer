@@ -80,6 +80,7 @@ public class DBWriter {
                 "(" + title_id + ",'" + recipe.getDescription() + "'," + recipe.getNb_of_servings() + "," + recipe.getDifficulty_id() + ","
                 + recipe.getUser_id() + "," + recipe.getPrep_time_id() + ") RETURNING recipe_id ";//RETURNING recipe_id
         long recipe_id = writeToDB(insertDescription, "recipe_id");
+        addToFavourites(recipe_id, recipe.getUser_id());//TODO: remove this line, it is temporary, adds newly created recipe to favourites of user 1
 
         for (int i = 0; i < recipe.getTags().size(); i++) {
             String insertTag = "INSERT INTO Tags (recipe_id, category_id) VALUE (" + recipe_id + ",'" + recipe.getTags().get(i).getAsString() + "')";
@@ -128,6 +129,11 @@ public class DBWriter {
         //TODO Parse gson here
         sendRecipeToDB(recipe);
         return Response.ok("Recipe added").build();
+    }
+
+    public void addToFavourites(long recipe_id, long user_id){
+        String insertFavourites = "INSERT INTO Favourites (recipe_id, user_id) VALUE (" + recipe_id + "," + user_id + ")";
+        writeToDB(insertFavourites, null);
     }
 
 //    private void sendTagsToDB(JsonArray tags) {
