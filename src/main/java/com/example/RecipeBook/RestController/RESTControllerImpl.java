@@ -59,6 +59,14 @@ public class RESTControllerImpl implements RestListener, RestController {
     public DBWriter getDBWriter() {
         return dbWriter;
     }
+    @Override
+    public Response createRecipe(String gsonPost) {
+        System.out.println("POST: "+gsonPost);
+        // DBWriter dbWriter = getDBWriter();
+        RecipeBookWriterThread thread = new RecipeBookWriterThread(gsonPost);
+
+        return thread.parseRecipe(gsonPost);
+    }
 
     /*
      *TODO: Change this method so it calls on FavouriteRecipeView from db to get the recipe_id's of
@@ -185,14 +193,7 @@ public class RESTControllerImpl implements RestListener, RestController {
         return thread.getRecipe(id);
     }
 
-    @Override
-    public Response createRecipe(String gsonPost) {
-        System.out.println("POST: "+gsonPost);
-       // DBWriter dbWriter = getDBWriter();
-        RecipeBookWriterThread thread = new RecipeBookWriterThread(gsonPost);
 
-        return thread.parseRecipe(gsonPost);
-    }
 
 //    @Override
 //    public Response options() {

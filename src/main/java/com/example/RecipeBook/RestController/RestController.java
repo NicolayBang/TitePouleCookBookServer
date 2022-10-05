@@ -12,6 +12,11 @@ import javax.ws.rs.core.Response;
 public interface RestController {
 
     @Path("/recipes")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @OPTIONS
+    Response createRecipe(String gsonPost);
+
+    @Path("/recipes")
     @Produces(MediaType.APPLICATION_JSON)
     @OPTIONS
     String getRecipesByTags();
@@ -59,9 +64,7 @@ public interface RestController {
     @GET
     String getRecipe(@PathParam("recipe_id") Long recipe_id);
 
-    @Path("/recipes")
-    @OPTIONS
-    Response createRecipe(String gsonPost);
+
 
 //    @Path("/recipes")
 //    @OPTIONS
