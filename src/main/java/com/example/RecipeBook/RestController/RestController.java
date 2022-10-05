@@ -13,7 +13,7 @@ public interface RestController {
 
     @Path("/recipes")
     @Produces(MediaType.APPLICATION_JSON)
-    @GET
+    @OPTIONS
     String getRecipesByTags();
 
     @Path("/recipes/{tags}")
