@@ -194,10 +194,10 @@ public class RESTControllerImpl implements RestListener, RestController {
         return thread.parseRecipe(gsonPost);
     }
 
-    @Override
-    public Response options() {
-        return Response.ok().build();
-    }
+//    @Override
+//    public Response options() {
+//        return Response.ok().build();
+//    }
 
 
 //    @Override
