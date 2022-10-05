@@ -66,124 +66,124 @@ public class RESTControllerImpl implements RestListener, RestController {
      * user_id as parameter. For now hardcode the user_id to 1.
      */
 
-//    @Override
-//    public String getRecipesByTags() {
-//        String query = "SELECT * FROM FavouriteRecipesView WHERE user_id = ";
-//        RecipeBookReaderThread thread = new RecipeBookReaderThread();
-//        thread.start();
-//        return thread.getRecipes(query);
-//    }
-//
-//    @Override
-//    public String getRecipesByTags(String tags) {
-//        String query = buildQueryByTags(tags);
-//        //     System.out.println(query);
-//        RecipeBookReaderThread thread = new RecipeBookReaderThread();
-//        thread.start();
-//        String response = thread.getRecipes(0, query);
-//        return response;
-//    }
-//
-//    @Override
-//    public String getRecipesByName(String name) {
-//        String query = "SELECT * FROM RecipeCardView WHERE name LIKE '%" + name + "%'";
-//        System.out.println(query);
-//        RecipeBookReaderThread thread = new RecipeBookReaderThread();
-//        thread.start();
-//        String response = thread.getRecipesByName(0, query);
-//        return response;
-//    }
-//
-//    @Override
-//    public String getCookingTimes() {
-//        //TODO change this to also return the prep_time_id from the DB. Either change the query or create a new view.
-//
-//        String query = "SELECT * FROM CookingTimeView";
-//        RecipeBookReaderThread thread = new RecipeBookReaderThread();
-//        thread.start();
-//        return thread.getCookingTimes(query);
-//    }
-//
-//    @Override
-//    public String getUnits() {
-//        String query = "SELECT * FROM Unit";
-//        RecipeBookReaderThread thread = new RecipeBookReaderThread();
-//        thread.start();
-//        return thread.getUnits(query);
-//    }
-//
-//    public String buildQueryByTags(String tags) {
-//        StringBuilder queryBuilder = new StringBuilder();
-//        queryBuilder.append("    SELECT * FROM RecipeCardView\n" +
-//                "\n" +
-//                " INNER JOIN Tags ON Tags.recipe_id = RecipeCardView.recipe_id\n" +
-//                " INNER JOIN Category ON Category.category_id = Tags.category_id\n" +
-//                "   WHERE Tags.category_id = ");
-//        String[] tagArray = tags.split("&=");
-//        for (int i = 0; i < tagArray.length; i++) {
-//            //  String test = tagArray[i].replaceAll(",", "");
-//
-//            if (i == 0) {
-//                continue;
-//            }
-//
-//            if (i == 1) {//If first tag add the first part of the query
-//                queryBuilder.append("'" + tagArray[i].replaceAll(",", "") + "'");
-//                continue;
-//            }
-//            if (i != tagArray.length) {
-//                queryBuilder.append("\n    OR Tags.category_id = " + "'" + tagArray[i].replaceAll(",", "") + "'");
-//            }
-//            if (i == tagArray.length - 1) {
-//                queryBuilder.append("GROUP BY name;");
-//            }
-//
-//        }
-//        return queryBuilder.toString();
-//    }
-//
-//    @Override
-//    public String getTags() {
-//        RecipeBookReaderThread thread = new RecipeBookReaderThread();
-//        thread.start();
-//        String response = thread.getTags();
-//        //       System.out.println(response);//For debugging
-//        return response;
-//    }
-//
-//    @Override
-//    public String getTags(long recipe_id) {
-//        RecipeBookReaderThread thread = new RecipeBookReaderThread();
-//        thread.start();
-//        String response = thread.getTags(recipe_id);
-//        System.out.println(response);//For debugging
-//        return response;
-//    }
-//
-//    @Override
-//    public String getIngredients(Long recipe_id) {
-//        RecipeBookReaderThread thread = new RecipeBookReaderThread();
-//        thread.start();
-//        String response = thread.getIngredients(recipe_id);
-//        //       System.out.println(response);//For debugging
-//        return response;
-//    }
-//
-//    @Override
-//    public String getInstructions(Long recipe_id) {
-//        RecipeBookReaderThread thread = new RecipeBookReaderThread();
-//        thread.start();
-//        String response = thread.getInstructions(recipe_id);
-//        //    System.out.println(response);//For debugging
-//        return response;
-//    }
-//
-//    @Override
-//    public String getRecipe(Long id) {
-//        RecipeBookReaderThread thread = new RecipeBookReaderThread();
-//        thread.start();
-//        return thread.getRecipe(id);
-//    }
+    @Override
+    public String getRecipesByTags() {
+        String query = "SELECT * FROM FavouriteRecipesView WHERE user_id = ";
+        RecipeBookReaderThread thread = new RecipeBookReaderThread();
+        thread.start();
+        return thread.getRecipes(query);
+    }
+
+    @Override
+    public String getRecipesByTags(String tags) {
+        String query = buildQueryByTags(tags);
+        //     System.out.println(query);
+        RecipeBookReaderThread thread = new RecipeBookReaderThread();
+        thread.start();
+        String response = thread.getRecipes(0, query);
+        return response;
+    }
+
+    @Override
+    public String getRecipesByName(String name) {
+        String query = "SELECT * FROM RecipeCardView WHERE name LIKE '%" + name + "%'";
+        System.out.println(query);
+        RecipeBookReaderThread thread = new RecipeBookReaderThread();
+        thread.start();
+        String response = thread.getRecipesByName(0, query);
+        return response;
+    }
+
+    @Override
+    public String getCookingTimes() {
+        //TODO change this to also return the prep_time_id from the DB. Either change the query or create a new view.
+
+        String query = "SELECT * FROM CookingTimeView";
+        RecipeBookReaderThread thread = new RecipeBookReaderThread();
+        thread.start();
+        return thread.getCookingTimes(query);
+    }
+
+    @Override
+    public String getUnits() {
+        String query = "SELECT * FROM Unit";
+        RecipeBookReaderThread thread = new RecipeBookReaderThread();
+        thread.start();
+        return thread.getUnits(query);
+    }
+
+    public String buildQueryByTags(String tags) {
+        StringBuilder queryBuilder = new StringBuilder();
+        queryBuilder.append("    SELECT * FROM RecipeCardView\n" +
+                "\n" +
+                " INNER JOIN Tags ON Tags.recipe_id = RecipeCardView.recipe_id\n" +
+                " INNER JOIN Category ON Category.category_id = Tags.category_id\n" +
+                "   WHERE Tags.category_id = ");
+        String[] tagArray = tags.split("&=");
+        for (int i = 0; i < tagArray.length; i++) {
+            //  String test = tagArray[i].replaceAll(",", "");
+
+            if (i == 0) {
+                continue;
+            }
+
+            if (i == 1) {//If first tag add the first part of the query
+                queryBuilder.append("'" + tagArray[i].replaceAll(",", "") + "'");
+                continue;
+            }
+            if (i != tagArray.length) {
+                queryBuilder.append("\n    OR Tags.category_id = " + "'" + tagArray[i].replaceAll(",", "") + "'");
+            }
+            if (i == tagArray.length - 1) {
+                queryBuilder.append("GROUP BY name;");
+            }
+
+        }
+        return queryBuilder.toString();
+    }
+
+    @Override
+    public String getTags() {
+        RecipeBookReaderThread thread = new RecipeBookReaderThread();
+        thread.start();
+        String response = thread.getTags();
+        //       System.out.println(response);//For debugging
+        return response;
+    }
+
+    @Override
+    public String getTags(long recipe_id) {
+        RecipeBookReaderThread thread = new RecipeBookReaderThread();
+        thread.start();
+        String response = thread.getTags(recipe_id);
+        System.out.println(response);//For debugging
+        return response;
+    }
+
+    @Override
+    public String getIngredients(Long recipe_id) {
+        RecipeBookReaderThread thread = new RecipeBookReaderThread();
+        thread.start();
+        String response = thread.getIngredients(recipe_id);
+        //       System.out.println(response);//For debugging
+        return response;
+    }
+
+    @Override
+    public String getInstructions(Long recipe_id) {
+        RecipeBookReaderThread thread = new RecipeBookReaderThread();
+        thread.start();
+        String response = thread.getInstructions(recipe_id);
+        //    System.out.println(response);//For debugging
+        return response;
+    }
+
+    @Override
+    public String getRecipe(Long id) {
+        RecipeBookReaderThread thread = new RecipeBookReaderThread();
+        thread.start();
+        return thread.getRecipe(id);
+    }
 
     @Override
     public Response createRecipe(String gsonPost) {
@@ -192,6 +192,11 @@ public class RESTControllerImpl implements RestListener, RestController {
         RecipeBookWriterThread thread = new RecipeBookWriterThread(gsonPost);
 
         return thread.parseRecipe(gsonPost);
+    }
+
+    @Override
+    public Response options() {
+        return Response.ok().build();
     }
 
 
