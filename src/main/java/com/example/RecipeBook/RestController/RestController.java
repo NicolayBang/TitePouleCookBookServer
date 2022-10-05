@@ -11,57 +11,61 @@ import javax.ws.rs.core.Response;
 @Path("/recipe_handler")
 public interface RestController {
 
-//    @Path("/recipes")
-//    @Produces(MediaType.APPLICATION_JSON)
-//    @GET
-//    String getRecipesByTags();
-//
-//    @Path("/recipes/{tags}")
-//    @GET
-//    String getRecipesByTags(@PathParam("tags")String tags);
-//
-//    @Path("/recipes_by_name/{name}")
-//    @GET
-//    String getRecipesByName(@PathParam("name")String name);
-//
-//    /**
-//     * TODO:Either have this method take a prep_time value as parameter and query the database to get the prep_time_id
-//     * TODO: OR change the query to return the prep_time_id as well as the prep_time so it can be sent back to the backend by the user.
-//     * TODO: OR create a new view that returns the prep_time_id and the prep_time,
-//     * TODO: OR implement caching and have the common values for prep_time_id and prep_time stored in a map; this can also be done for all the other tables that are very rarely written to (and never by the server).
-//     * @return
-//     */
-//    @Path("/cooking_times")
-//    @GET
-//    String getCookingTimes();
-//
-//    @Path("/units")
-//    @GET
-//    String getUnits();
-//
-//    @Path("/tags")
-//    @GET
-//    String getTags();
-//
-//    @Path("/tags/{recipe_id}")
-//    @GET
-//    String getTags(@PathParam("recipe_id")long recipe_id);
-//
-//    @Path("/ingredients/{recipe_id}")
-//    @GET
-//    String getIngredients(@PathParam("recipe_id") Long recipe_id);
-//
-//    @Path("/instructions/{recipe_id}")
-//    @GET
-//    String getInstructions(@PathParam("recipe_id") Long recipe_id);
-//
-//    @Path("/recipe/{recipe_id}")
-//    @GET
-//    String getRecipe(@PathParam("recipe_id") Long recipe_id);
+    @Path("/recipes")
+    @Produces(MediaType.APPLICATION_JSON)
+    @GET
+    String getRecipesByTags();
+
+    @Path("/recipes/{tags}")
+    @GET
+    String getRecipesByTags(@PathParam("tags")String tags);
+
+    @Path("/recipes_by_name/{name}")
+    @GET
+    String getRecipesByName(@PathParam("name")String name);
+
+    /**
+     * TODO:Either have this method take a prep_time value as parameter and query the database to get the prep_time_id
+     * TODO: OR change the query to return the prep_time_id as well as the prep_time so it can be sent back to the backend by the user.
+     * TODO: OR create a new view that returns the prep_time_id and the prep_time,
+     * TODO: OR implement caching and have the common values for prep_time_id and prep_time stored in a map; this can also be done for all the other tables that are very rarely written to (and never by the server).
+     * @return
+     */
+    @Path("/cooking_times")
+    @GET
+    String getCookingTimes();
+
+    @Path("/units")
+    @GET
+    String getUnits();
+
+    @Path("/tags")
+    @GET
+    String getTags();
+
+    @Path("/tags/{recipe_id}")
+    @GET
+    String getTags(@PathParam("recipe_id")long recipe_id);
+
+    @Path("/ingredients/{recipe_id}")
+    @GET
+    String getIngredients(@PathParam("recipe_id") Long recipe_id);
+
+    @Path("/instructions/{recipe_id}")
+    @GET
+    String getInstructions(@PathParam("recipe_id") Long recipe_id);
+
+    @Path("/recipe/{recipe_id}")
+    @GET
+    String getRecipe(@PathParam("recipe_id") Long recipe_id);
 
     @Path("/recipes")
     @POST
     Response createRecipe(String gsonPost);
+
+    @Path("/recipes")
+    @OPTIONS
+    Response options();
 
 //    @Path("/recipes")
 //    @PUT
