@@ -60,12 +60,12 @@ public interface RestController {
     String getRecipe(@PathParam("recipe_id") Long recipe_id);
 
     @Path("/recipes")
-    @POST
+    @OPTIONS
     Response createRecipe(String gsonPost);
 
-    @Path("/recipes")
-    @OPTIONS
-    Response options();
+//    @Path("/recipes")
+//    @OPTIONS
+//    Response options();
 
 //    @Path("/recipes")
 //    @PUT

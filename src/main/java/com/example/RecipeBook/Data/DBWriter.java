@@ -130,7 +130,8 @@ public class DBWriter {
         System.out.println("@@@sendRecipeToDB: " + recipe.getTitle() + " " + recipe.getDescription());
         //TODO Parse gson here
         sendRecipeToDB(recipe);
-        return Response.ok("Recipe added").build();
+        return Response.status(200).build();
+       // return Response.ok("Recipe added").build();
     }
 
     public void addToFavourites(long recipe_id, long user_id){
