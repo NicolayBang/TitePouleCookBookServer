@@ -72,6 +72,7 @@ public class DBWriter {
         String insertTitle = "INSERT INTO Title (title) VALUE ('" + recipe.getTitle() + "')";
         toDB(insertTitle, "title_id");
         long title_id = toDB("SELECT LAST_INSERT_ID() as id", "id");
+        System.out.println("title_id: " + title_id);
         //INSERT INTO Recipe (title_id,description,nb_of_servings, difficulty_id, user_id, prep_time_id)
         String insertDescription = "INSERT INTO Recipe (title_id,description,nb_of_servings, difficulty_id, user_id, prep_time_id) VALUE " +
                 "(" + title_id + ",'" + recipe.getDescription() + "'," + recipe.getNb_of_servings() + "," + recipe.getDifficulty_id() + ","
