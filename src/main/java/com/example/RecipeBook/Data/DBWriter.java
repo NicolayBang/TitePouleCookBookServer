@@ -69,6 +69,7 @@ public class DBWriter {
 //        }
 //    }
     public void sendRecipeToDB(RecipePost recipe) {
+        System.out.println("Sending recipe to DB");
         String insertTitle = "INSERT INTO Title (title) VALUE ('" + recipe.getTitle() + "')";
         toDB(insertTitle, "title_id");
         long title_id = toDB("SELECT LAST_INSERT_ID() as id", "id");
