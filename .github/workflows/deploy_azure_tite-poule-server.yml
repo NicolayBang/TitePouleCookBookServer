@@ -41,4 +41,4 @@ jobs:
           app-name: 'tite-poule-server'
           slot-name: 'Production'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_AAB4D32AA7A041F78FAD5D5D10F2C2DA }}
-          package: '*.war'
+      
