@@ -59,7 +59,7 @@ public interface RestController {
 //    @GET
 //    String getRecipe(@PathParam("recipe_id") Long recipe_id);
 
-    @Path("/post_recipe")
+    @Path("/recipes")
     @POST
     Response createRecipe(String gsonPost);
 
