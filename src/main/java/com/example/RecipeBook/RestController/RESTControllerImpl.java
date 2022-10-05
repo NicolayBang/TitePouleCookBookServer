@@ -4,6 +4,7 @@ import com.example.RecipeBook.Data.DBReader;
 import com.example.RecipeBook.Data.DBWriter;
 import com.example.RecipeBook.Threads.RecipeBookReaderThread;
 import com.example.RecipeBook.Threads.RecipeBookWriterThread;
+import com.google.gson.Gson;
 
 import javax.ws.rs.core.Response;
 import java.io.IOException;
@@ -60,12 +61,13 @@ public class RESTControllerImpl implements RestListener, RestController {
         return dbWriter;
     }
     @Override
-    public Response createRecipe(String gsonPost) {
+    public Response createRecipe(Gson gsonPost) {
         System.out.println("POST: "+gsonPost);
         // DBWriter dbWriter = getDBWriter();
-        RecipeBookWriterThread thread = new RecipeBookWriterThread(gsonPost);
+       // RecipeBookWriterThread thread = new RecipeBookWriterThread(gsonPost);
 
-        return thread.parseRecipe(gsonPost);
+       // return thread.parseRecipe(gsonPost);
+        return new Gson().fromJson(gsonPost.toString(), Response.class);
     }
 
     /*
@@ -75,12 +77,13 @@ public class RESTControllerImpl implements RestListener, RestController {
      */
 
     @Override
-    public String getRecipesByTags(String gsonPost) {
+    public String getRecipesByTags(Gson gsonPost) {
         System.out.println("GET: "+gsonPost);
         String query = "SELECT * FROM FavouriteRecipesView WHERE user_id = ";
         RecipeBookReaderThread thread = new RecipeBookReaderThread();
         thread.start();
-        return thread.getRecipes(query);
+       // return thread.getRecipes(query);
+        return "sent";
     }
 
 //    @Override
