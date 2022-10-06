@@ -16,7 +16,7 @@ public class DBWriter {
     public final Gson gsonPost = new GsonBuilder().registerTypeAdapter(RecipePost.class, recipePostJSONAdapter).serializeNulls().create();
     public DBReader dbReader = new DBReader();
     protected Connection connection = (Connection) RESTControllerImpl.connection;
-//    RESTControllerImpl recipeHandler;
+    RESTControllerImpl recipeHandler;
 //    public DBWriter() {
 //        init();
 //    }
@@ -124,10 +124,10 @@ public class DBWriter {
     }
 
     public Response parseRecipe(String gsonInput) {
-      //  DBWriter dbWriter = recipeHandler.getDBWriter();
+        DBWriter dbWriter = recipeHandler.getDBWriter();
         RecipePost recipe = new RecipePost();
         try {
-            recipe = gsonPost.fromJson(gsonInput, RecipePost.class);
+            recipe = dbWriter.gsonPost.fromJson(gsonInput, RecipePost.class);
         } catch (Exception e) {
             e.printStackTrace();
             return Response.status(500).build();
