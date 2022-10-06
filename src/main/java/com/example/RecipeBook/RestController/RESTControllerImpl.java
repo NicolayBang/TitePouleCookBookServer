@@ -30,6 +30,7 @@ public class RESTControllerImpl implements RestListener, RestController {
             connection = DriverManager.getConnection
                     ("jdbc:mariadb://iu51mf0q32fkhfpl.cbetxkdyhwsb.us-east-1.rds.amazonaws.com:3306/l9wg8442wjqiydnn",
                             "h0t8uqbccnbr14zr", "a8s8zrqzymt4ny5a");
+            System.out.println("Connected to DB -- connection #");
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -50,7 +51,7 @@ public class RESTControllerImpl implements RestListener, RestController {
 //                    ("jdbc:mariadb://iu51mf0q32fkhfpl.cbetxkdyhwsb.us-east-1.rds.amazonaws.com:3306/l9wg8442wjqiydnn",
 //                            "h0t8uqbccnbr14zr", "a8s8zrqzymt4ny5a");
 //            connections++;
-//            System.out.println("Connected to DB -- connection #" + connections);;
+//           ; System.out.println("Connected to DB -- connection #" + connections);
 //        } catch (SQLException e) {
 //
 //        }
