@@ -2,7 +2,7 @@ package com.example.RecipeBook.Data;
 
 import com.example.RecipeBook.JSONHandler.RecipePostJSONAdapter;
 import com.example.RecipeBook.Objects.RecipePost;
-import com.example.RecipeBook.RestController.RESTControllerImpl;
+import com.example.RecipeBook.RestController.RecipeBookControllerImpl;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import org.mariadb.jdbc.Connection;
@@ -15,14 +15,14 @@ public class DBWriter {
     public static final RecipePostJSONAdapter recipePostJSONAdapter = new RecipePostJSONAdapter();
     public final Gson gsonPost = new GsonBuilder().registerTypeAdapter(RecipePost.class, recipePostJSONAdapter).serializeNulls().create();
     public DBReader dbReader = new DBReader();
-    protected Connection connection = (Connection) RESTControllerImpl.getInstance().connection;
-    RESTControllerImpl recipeHandler;
+    protected Connection connection = (Connection) RecipeBookControllerImpl.getInstance().connection;
+    RecipeBookControllerImpl recipeHandler;
     public DBWriter() {
         init();
     }
     void init() {
-        recipeHandler = RESTControllerImpl.getInstance();
-    //    connection = (Connection) RESTControllerImpl.connection;
+        recipeHandler = RecipeBookControllerImpl.getInstance();
+    //    connection = (Connection) RecipeBookControllerImpl.connection;
     }
 //    public void connectToDB() {
 //        try {
@@ -156,7 +156,7 @@ public class DBWriter {
 //        }
 //        currId++;
 //       // recipe.setRecipe_id(recipeHandler.getDBReader().currId);
-//        RESTControllerImpl.getInstance().getDBReader().recipes.put(recipe.getRecipe_id(), recipe);
+//        RecipeBookControllerImpl.getInstance().getDBReader().recipes.put(recipe.getRecipe_id(), recipe);
 //        return Response.ok(recipe).build();
 //    }
 

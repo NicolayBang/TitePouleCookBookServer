@@ -9,16 +9,16 @@ import javax.ws.rs.core.Response;
 
 //@CrossOrigin
 @Path("/recipe_handler")
-public interface RestController {
+public interface RecipeBookController {
 
-    @Path("/recipes")
+   // @Path("/recipes")
     @Produces(MediaType.APPLICATION_JSON)
     @OPTIONS
-    String getRecipesByTags();
+    String getFavouriteRecipeByUser();
 
     @Path("/recipes/{tags}")
     @GET
-    String getRecipesByTags(@PathParam("tags")String tags);
+    String getFavouriteRecipeByUser(@PathParam("tags")String tags);
 
     @Path("/recipes_by_name/{name}")
     @GET

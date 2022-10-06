@@ -4,34 +4,35 @@ import com.example.RecipeBook.Data.DBReader;
 import com.example.RecipeBook.Data.DBWriter;
 import com.example.RecipeBook.Threads.RecipeBookReaderThread;
 import com.example.RecipeBook.Threads.RecipeBookWriterThread;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.ws.rs.core.Response;
-import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
 
 /**
- * Singleton RestController class that handles all the requests from the client.
+ * Singleton RecipeBookController class that handles all the requests from the client.
  */
 
 
-
-public class RESTControllerImpl implements RestListener, RestController {
+@RestController
+public class RecipeBookControllerImpl implements RestListener, RecipeBookController {
 
     private static final DBWriter dbWriter = new DBWriter();
-    private static final RESTControllerImpl recipeHandler = new RESTControllerImpl();
+    private static final RecipeBookControllerImpl recipeHandler = new RecipeBookControllerImpl();
 
 
     public static Connection connection;
 
 
-    public RESTControllerImpl() {
+    public RecipeBookControllerImpl() {
         connectToDB();
     }
 
-    public static RESTControllerImpl getInstance() {
+    public static RecipeBookControllerImpl getInstance() {
         return recipeHandler;
     }
 
@@ -65,9 +66,9 @@ public class RESTControllerImpl implements RestListener, RestController {
      * the favourite recipes and then calls on the RecipeCardView to get the recipe cards. Will take
      * user_id as parameter. For now hardcode the user_id to 1.
      */
-
+    @RequestMapping("/recipes")
     @Override
-    public String getRecipesByTags() {
+    public String getFavouriteRecipeByUser() {
         String query = "SELECT * FROM FavouriteRecipesView WHERE user_id = ";
         RecipeBookReaderThread thread = new RecipeBookReaderThread();
         thread.start();
@@ -75,7 +76,7 @@ public class RESTControllerImpl implements RestListener, RestController {
     }
 
     @Override
-    public String getRecipesByTags(String tags) {
+    public String getFavouriteRecipeByUser(String tags) {
         String query = buildQueryByTags(tags);
         //     System.out.println(query);
         RecipeBookReaderThread thread = new RecipeBookReaderThread();
