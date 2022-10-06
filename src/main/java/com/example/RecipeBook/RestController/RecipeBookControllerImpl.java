@@ -4,9 +4,12 @@ import com.example.RecipeBook.Data.DBReader;
 import com.example.RecipeBook.Data.DBWriter;
 import com.example.RecipeBook.Threads.RecipeBookReaderThread;
 import com.example.RecipeBook.Threads.RecipeBookWriterThread;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -66,7 +69,9 @@ public class RecipeBookControllerImpl implements RestListener, RecipeBookControl
      * the favourite recipes and then calls on the RecipeCardView to get the recipe cards. Will take
      * user_id as parameter. For now hardcode the user_id to 1.
      */
-    @RequestMapping("/recipes")
+  //  @RequestMapping("/recipes")
+    @Produces(MediaType.APPLICATION_JSON)
+    @GetMapping("/recipes")
     @Override
     public String getFavouriteRecipeByUser() {
         String query = "SELECT * FROM FavouriteRecipesView WHERE user_id = ";
