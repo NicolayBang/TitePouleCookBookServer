@@ -68,6 +68,11 @@ public class DBWriter {
 //            return -1;
 //        }
 //    }
+
+    /**
+     * This version of send recipe doesn't use RETURNING statements in the sql syntax, meant to work with MariaDB prior to 10.5.0 (Heroku Mariadb dyno uses 10.2.0)
+     * @param recipe
+     */
     public void sendRecipeToDB(RecipePost recipe) {
         System.out.println("Sending recipe to DB");
         String insertTitle = "INSERT INTO Title (title) VALUE ('" + recipe.getTitle() + "')";
@@ -77,7 +82,7 @@ public class DBWriter {
         //INSERT INTO Recipe (title_id,description,nb_of_servings, difficulty_id, user_id, prep_time_id)
         String insertDescription = "INSERT INTO Recipe (title_id,description,nb_of_servings, difficulty_id, user_id, prep_time_id) VALUE " +
                 "(" + title_id + ",'" + recipe.getDescription() + "'," + recipe.getNb_of_servings() + "," + recipe.getDifficulty_id() + ","
-                + recipe.getUser_id() + "," + recipe.getPrep_time_id() + ") RETURNING recipe_id ";//RETURNING recipe_id
+                + recipe.getUser_id() + "," + recipe.getPrep_time_id() + ")";//RETURNING recipe_id
         toDB(insertDescription, "recipe_id");
         long recipe_id = toDB("SELECT LAST_INSERT_ID() as id", "id");
         addToFavourites(recipe_id, recipe.getUser_id());//TODO: remove this line, it is temporary, adds newly created recipe to favourites of user 1
@@ -86,7 +91,7 @@ public class DBWriter {
             String insertTag = "INSERT INTO Tags (recipe_id, category_id) VALUE (" + recipe_id + ",'" + recipe.getTags().get(i).getAsString() + "')";
             toDB(insertTag, null);//RETURNING tags_id
         }
-        toDB("INSERT INTO Ingredients (recipe_id) VALUE (" + recipe_id + ")RETURNING ingredients_id",
+        toDB("INSERT INTO Ingredients (recipe_id) VALUE (" + recipe_id + ")",//RETURNING ingredients_id
                 "ingredients_id") ;
         long ingredients_id =toDB("SELECT LAST_INSERT_ID() as id", "id");  //
 
@@ -105,7 +110,7 @@ public class DBWriter {
                    + "'," + unit_id +"," +recipe.getIngredients().get(i).getAmount() +")";
            toDB(insertIngredients, null);//RETURNING tags_id
        }
-        toDB("INSERT INTO Instructions (recipe_id) VALUE (" + recipe_id + ")RETURNING instructions_id",
+        toDB("INSERT INTO Instructions (recipe_id) VALUE (" + recipe_id + ")",//RETURNING instructions_id
                 "instructions_id") ;
         long instructions_id = toDB("SELECT LAST_INSERT_ID() as id", "id");  //
             for (int i=0; i<recipe.getInstructions().size();i++){
@@ -130,8 +135,7 @@ public class DBWriter {
         System.out.println("@@@sendRecipeToDB: " + recipe.getTitle() + " " + recipe.getDescription());
         //TODO Parse gson here
         sendRecipeToDB(recipe);
-        return Response.status(200).build();
-       // return Response.ok("Recipe added").build();
+        return Response.ok("Recipe added").build();
     }
 
     public void addToFavourites(long recipe_id, long user_id){
