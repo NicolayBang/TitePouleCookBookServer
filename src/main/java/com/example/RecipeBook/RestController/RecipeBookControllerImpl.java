@@ -69,9 +69,9 @@ public class RecipeBookControllerImpl implements RestListener, RecipeBookControl
      * the favourite recipes and then calls on the RecipeCardView to get the recipe cards. Will take
      * user_id as parameter. For now hardcode the user_id to 1.
      */
-  //  @RequestMapping("/recipes")
+    @RequestMapping("/recipes")
     @Produces(MediaType.APPLICATION_JSON)
-    @GetMapping("/recipes")
+  //  @GetMapping("/recipes")
     @Override
     public String getFavouriteRecipeByUser() {
         String query = "SELECT * FROM FavouriteRecipesView WHERE user_id = ";
