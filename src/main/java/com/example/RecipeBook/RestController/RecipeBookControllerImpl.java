@@ -4,53 +4,57 @@ import com.example.RecipeBook.Data.DBReader;
 import com.example.RecipeBook.Data.DBWriter;
 import com.example.RecipeBook.Threads.RecipeBookReaderThread;
 import com.example.RecipeBook.Threads.RecipeBookWriterThread;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
 
 /**
- * Singleton RecipeBookController class that handles all the requests from the client.
+ * Singleton RestController class that handles all the requests from the client.
  */
 
 
-@RestController
-public class RecipeBookControllerImpl implements RestListener, RecipeBookController {
+
+public class RESTControllerImpl implements RestListener, RestController {
 
     private static final DBWriter dbWriter = new DBWriter();
-    private static final RecipeBookControllerImpl recipeHandler = new RecipeBookControllerImpl();
+    private static final RESTControllerImpl recipeHandler = new RESTControllerImpl();
 
 
-    public static Connection connection;
-
-
-    public RecipeBookControllerImpl() {
-        connectToDB();
-    }
-
-    public static RecipeBookControllerImpl getInstance() {
-        return recipeHandler;
-    }
-    private long connections = 0;
-
-    public void connectToDB() {
+    public static final Connection connection;
+    static {
         try {
             connection = DriverManager.getConnection
                     ("jdbc:mariadb://iu51mf0q32fkhfpl.cbetxkdyhwsb.us-east-1.rds.amazonaws.com:3306/l9wg8442wjqiydnn",
                             "h0t8uqbccnbr14zr", "a8s8zrqzymt4ny5a");
-            connections++;
-            System.out.println("Connected to DB -- connection #" + connections);;
         } catch (SQLException e) {
-
+            throw new RuntimeException(e);
         }
+    };
+
+//    public RESTControllerImpl() {
+//        connectToDB();
+//    }
+
+    public static RESTControllerImpl getInstance() {
+        return recipeHandler;
     }
+    private long connections = 0;
+
+//    public void connectToDB() {
+//        try {
+//            connection = DriverManager.getConnection
+//                    ("jdbc:mariadb://iu51mf0q32fkhfpl.cbetxkdyhwsb.us-east-1.rds.amazonaws.com:3306/l9wg8442wjqiydnn",
+//                            "h0t8uqbccnbr14zr", "a8s8zrqzymt4ny5a");
+//            connections++;
+//            System.out.println("Connected to DB -- connection #" + connections);;
+//        } catch (SQLException e) {
+//
+//        }
+//    }
 //public void connectToDB() {
 //    try {
 //        connection = DriverManager.getConnection("jdbc:mariadb://localhost:3306/recipe_db_v2", "root", "Roslyn06");
@@ -72,11 +76,9 @@ public class RecipeBookControllerImpl implements RestListener, RecipeBookControl
      * the favourite recipes and then calls on the RecipeCardView to get the recipe cards. Will take
      * user_id as parameter. For now hardcode the user_id to 1.
      */
-    @RequestMapping("/recipes")
-    @Produces(MediaType.APPLICATION_JSON)
-  //  @GetMapping("/recipes")
+
     @Override
-    public String getFavouriteRecipeByUser() {
+    public String getFavouredRecipesByUser() {
         String query = "SELECT * FROM FavouriteRecipesView WHERE user_id = ";
         RecipeBookReaderThread thread = new RecipeBookReaderThread();
         thread.start();
@@ -84,7 +86,7 @@ public class RecipeBookControllerImpl implements RestListener, RecipeBookControl
     }
 
     @Override
-    public String getFavouriteRecipeByUser(String tags) {
+    public String getFavouredRecipesByUser(String tags) {
         String query = buildQueryByTags(tags);
         //     System.out.println(query);
         RecipeBookReaderThread thread = new RecipeBookReaderThread();
