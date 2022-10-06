@@ -97,18 +97,21 @@ public class DBWriter {
 
        for (int i=0; i<recipe.getIngredients().size();i++){
            String unitName = recipe.getIngredients().get(i).getUnit();
-           String unit_id=null;
-           if(unitName.contains("null")){
-               unit_id = "1";
-           }else {
-                String getUnitIdByName = "SELECT unit_id FROM Unit WHERE unit_name = '" + unitName + "'";
-                //This query will always return only one result so we can use the first element of the list
-                 unit_id = dbReader.queryDB(getUnitIdByName, "unit_id").get(0); //(String) dbReader.queryDB(getUnitIdByName, "unit_id");
-           }
+           long unit_id=1;
+           String parsedUnitId = unit_id+"";
+//           if(unitName.contains("null")){
+//               unit_id = 1;
+//           }
+//           else {
+//                String getUnitIdByName = "SELECT unit_id FROM Unit WHERE unit_name = '" + unitName + "'";
+//                //This query will always return only one result so we can use the first element of the list
+//                 unit_id = dbReader.queryDB(getUnitIdByName, "unit_id").get(0); //(String) dbReader.queryDB(getUnitIdByName, "unit_id");
+//           }
            String insertIngredients = "INSERT INTO Ingredient (ingredients_id, ingredient, unit_id, quantity) VALUE (" + ingredients_id + ",'"
                    + recipe.getIngredients().get(i).getName()
-                   + "'," + unit_id +"," +recipe.getIngredients().get(i).getAmount() +")";
+                   + "'," +  parsedUnitId +"," +recipe.getIngredients().get(i).getAmount() +")";
            toDB(insertIngredients, null);//RETURNING tags_id
+           unit_id++;
        }
         toDB("INSERT INTO Instructions (recipe_id) VALUE (" + recipe_id + ")",//RETURNING instructions_id
                 "instructions_id") ;
