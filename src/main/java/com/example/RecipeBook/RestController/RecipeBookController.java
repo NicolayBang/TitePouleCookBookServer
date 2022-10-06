@@ -13,15 +13,15 @@ public interface RecipeBookController {
 
    // @Path("/recipes")
     @Produces(MediaType.APPLICATION_JSON)
-    @GET
+    @OPTIONS
     String getFavouriteRecipeByUser();
 
     @Path("/recipes/{tags}")
-    @GET
+    @OPTIONS
     String getFavouriteRecipeByUser(@PathParam("tags")String tags);
 
     @Path("/recipes_by_name/{name}")
-    @GET
+    @OPTIONS
     String getRecipesByName(@PathParam("name")String name);
 
     /**
@@ -32,35 +32,35 @@ public interface RecipeBookController {
      * @return
      */
     @Path("/cooking_times")
-    @GET
+    @OPTIONS
     String getCookingTimes();
 
     @Path("/units")
-    @GET
+    @OPTIONS
     String getUnits();
 
     @Path("/tags")
-    @GET
+    @OPTIONS
     String getTags();
 
     @Path("/tags/{recipe_id}")
-    @GET
+    @OPTIONS
     String getTags(@PathParam("recipe_id")long recipe_id);
 
     @Path("/ingredients/{recipe_id}")
-    @GET
+    @OPTIONS
     String getIngredients(@PathParam("recipe_id") Long recipe_id);
 
     @Path("/instructions/{recipe_id}")
-    @GET
+    @OPTIONS
     String getInstructions(@PathParam("recipe_id") Long recipe_id);
 
     @Path("/recipe/{recipe_id}")
-    @GET
+    @OPTIONS
     String getRecipe(@PathParam("recipe_id") Long recipe_id);
 
     @Path("/recipes")
-    @OPTIONS
+    @POST
     Response createRecipe(String gsonPost);
 
 //    @Path("/recipes")
