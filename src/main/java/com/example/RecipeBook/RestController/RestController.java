@@ -12,13 +12,17 @@ import javax.ws.rs.core.Response;
 public interface RestController {
 
     @Path("/recipes")
+    @POST
+    Response createRecipe(String gsonPost);
+
+    @Path("/recipes")
     @Produces(MediaType.APPLICATION_JSON)
-    @OPTIONS
-    String getRecipesByTags();
+    @GET
+    String getFavouredRecipesByUser();
 
     @Path("/recipes/{tags}")
     @GET
-    String getRecipesByTags(@PathParam("tags")String tags);
+    String getFavouredRecipesByUser(@PathParam("tags")String tags);
 
     @Path("/recipes_by_name/{name}")
     @GET
@@ -59,9 +63,7 @@ public interface RestController {
     @GET
     String getRecipe(@PathParam("recipe_id") Long recipe_id);
 
-    @Path("/recipes")
-    @OPTIONS
-    Response createRecipe(String gsonPost);
+
 
 //    @Path("/recipes")
 //    @OPTIONS
