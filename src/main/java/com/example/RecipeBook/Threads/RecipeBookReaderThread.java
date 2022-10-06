@@ -1,7 +1,7 @@
 package com.example.RecipeBook.Threads;
 
 import com.example.RecipeBook.Data.DBReader;
-import com.example.RecipeBook.RestController.RecipeBookControllerImpl;
+import com.example.RecipeBook.RestController.RESTControllerImpl;
 import com.example.RecipeBook.Views.*;
 import org.springframework.stereotype.Service;
 
@@ -11,15 +11,15 @@ import java.util.ArrayList;
 @Service
 public class RecipeBookReaderThread extends Thread {
 
-    final RecipeBookControllerImpl recipeHandler;
+    final RESTControllerImpl recipeHandler;
     RecipeCardView recipeCardView;
     final Connection connection;
     final DBReader DBReader = new DBReader();
     private final DBReader dbReader = new DBReader();
 
     public RecipeBookReaderThread() {
-        recipeHandler = new RecipeBookControllerImpl();
-        this.connection = RecipeBookControllerImpl.getInstance().connection;
+        recipeHandler = new RESTControllerImpl();
+        this.connection = RESTControllerImpl.connection;
     }
 
     //@Override
@@ -50,7 +50,7 @@ public class RecipeBookReaderThread extends Thread {
     // @Override
     public String getRecipe(long id) {
         return dbReader.gsonGet.toJson(DBReader.getRecipeCardViewFromDB(id));
-        //return recipeHandler.getDataBaseConnector().gson.toJson(RecipeBookControllerImpl.getInstance().getDataBaseConnector().recipes.get(id));
+        //return recipeHandler.getDataBaseConnector().gson.toJson(RESTControllerImpl.getInstance().getDataBaseConnector().recipes.get(id));
     }
 
     public String getTags() {
@@ -106,7 +106,7 @@ public class RecipeBookReaderThread extends Thread {
 //        }
 //        recipeHandler.getDBWriter().currId++;
 //        recipe.setRecipe_id(recipeHandler.getDBWriter().currId);
-//        RecipeBookControllerImpl.getInstance().getDBWriter().recipes.put(recipe.getRecipe_id(), recipe);
+//        RESTControllerImpl.getInstance().getDBWriter().recipes.put(recipe.getRecipe_id(), recipe);
 //        return Response.ok(recipe).build();
 //    }
 //
@@ -166,10 +166,10 @@ public class RecipeBookReaderThread extends Thread {
 
 //    public Response updateRecipe(String gsonPut) {
 //        Card recipe = recipeHandler.getDataBaseConnector().gson.fromJson(String.valueOf(gsonPut), Card.class);
-//        Card currRecipe = RecipeBookControllerImpl.getInstance().getDataBaseConnector().recipes.get(recipe.getRecipe_id());
+//        Card currRecipe = RESTControllerImpl.getInstance().getDataBaseConnector().recipes.get(recipe.getRecipe_id());
 //        Response response;
 //        if (currRecipe != null) {
-//            RecipeBookControllerImpl.getInstance().getDataBaseConnector().recipes.put(recipe.getRecipe_id(), recipe);
+//            RESTControllerImpl.getInstance().getDataBaseConnector().recipes.put(recipe.getRecipe_id(), recipe);
 //            response = Response.ok().build();
 //        } else {
 //            response = Response.notModified().build();
@@ -179,11 +179,11 @@ public class RecipeBookReaderThread extends Thread {
 
     // @Override
 //    public Response deleteRecipe(Long id) {
-//        Recipe recipe = RecipeBookControllerImpl.getInstance().getDataBaseConnector().recipes.get(id);
+//        Recipe recipe = RESTControllerImpl.getInstance().getDataBaseConnector().recipes.get(id);
 //
 //        Response response;
 //        if (recipe != null) {
-//            RecipeBookControllerImpl.getInstance().getDataBaseConnector().recipes.remove(id);
+//            RESTControllerImpl.getInstance().getDataBaseConnector().recipes.remove(id);
 //            response = Response.ok().build();
 //        } else {
 //            response = Response.notModified().build();
