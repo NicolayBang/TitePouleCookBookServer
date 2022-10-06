@@ -124,10 +124,10 @@ public class DBWriter {
     }
 
     public Response parseRecipe(String gsonInput) {
-        DBWriter dbWriter = recipeHandler.getDBWriter();
+       // DBWriter dbWriter = recipeHandler.getDBWriter();
         RecipePost recipe = new RecipePost();
         try {
-            recipe = dbWriter.gsonPost.fromJson(gsonInput, RecipePost.class);
+            recipe = gsonPost.fromJson(gsonInput, RecipePost.class);
         } catch (Exception e) {
             e.printStackTrace();
             return Response.status(500).build();
