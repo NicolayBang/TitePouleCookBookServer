@@ -4,7 +4,6 @@ import com.example.RecipeBook.Data.DBReader;
 import com.example.RecipeBook.Data.DBWriter;
 import com.example.RecipeBook.Threads.RecipeBookReaderThread;
 import com.example.RecipeBook.Threads.RecipeBookWriterThread;
-import com.google.gson.Gson;
 
 import javax.ws.rs.core.Response;
 import java.io.IOException;
@@ -60,15 +59,6 @@ public class RESTControllerImpl implements RestListener, RestController {
     public DBWriter getDBWriter() {
         return dbWriter;
     }
-    @Override
-    public Response createRecipe(Gson gsonPost) {
-        System.out.println("POST: "+gsonPost);
-        // DBWriter dbWriter = getDBWriter();
-       // RecipeBookWriterThread thread = new RecipeBookWriterThread(gsonPost);
-
-       // return thread.parseRecipe(gsonPost);
-        return new Gson().fromJson(gsonPost.toString(), Response.class);
-    }
 
     /*
      *TODO: Change this method so it calls on FavouriteRecipeView from db to get the recipe_id's of
@@ -77,24 +67,22 @@ public class RESTControllerImpl implements RestListener, RestController {
      */
 
     @Override
-    public String getRecipesByTags(Gson gsonPost) {
-        System.out.println("GET: "+gsonPost);
+    public String getRecipesByTags() {
         String query = "SELECT * FROM FavouriteRecipesView WHERE user_id = ";
         RecipeBookReaderThread thread = new RecipeBookReaderThread();
         thread.start();
-       // return thread.getRecipes(query);
-        return "sent";
+        return thread.getRecipes(query);
     }
 
-//    @Override
-//    public String getRecipesByTags(String tags) {
-//        String query = buildQueryByTags(tags);
-//        //     System.out.println(query);
-//        RecipeBookReaderThread thread = new RecipeBookReaderThread();
-//        thread.start();
-//        String response = thread.getRecipes(0, query);
-//        return response;
-//    }
+    @Override
+    public String getRecipesByTags(String tags) {
+        String query = buildQueryByTags(tags);
+        //     System.out.println(query);
+        RecipeBookReaderThread thread = new RecipeBookReaderThread();
+        thread.start();
+        String response = thread.getRecipes(0, query);
+        return response;
+    }
 
     @Override
     public String getRecipesByName(String name) {
@@ -197,7 +185,14 @@ public class RESTControllerImpl implements RestListener, RestController {
         return thread.getRecipe(id);
     }
 
+    @Override
+    public Response createRecipe(String gsonPost) {
+        System.out.println("POST: "+gsonPost);
+       // DBWriter dbWriter = getDBWriter();
+        RecipeBookWriterThread thread = new RecipeBookWriterThread(gsonPost);
 
+        return thread.parseRecipe(gsonPost);
+    }
 
 //    @Override
 //    public Response options() {

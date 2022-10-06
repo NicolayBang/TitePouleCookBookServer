@@ -3,8 +3,6 @@ package com.example.RecipeBook.RestController;
 //import HTTPResponse.HTTPResponse;
 //import org.springframework.web.bind.annotation.PathVariable;
 
-import com.google.gson.Gson;
-
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -14,18 +12,13 @@ import javax.ws.rs.core.Response;
 public interface RestController {
 
     @Path("/recipes")
-    @Consumes(MediaType.APPLICATION_JSON)
-    @OPTIONS
-    Response createRecipe(Gson gsonPost);
-
-    @Path("/recipes")
     @Produces(MediaType.APPLICATION_JSON)
     @OPTIONS
-    String getRecipesByTags(Gson gsonPost);
+    String getRecipesByTags();
 
-//    @Path("/recipes/{tags}")
-//    @GET
-//    String getRecipesByTags(@PathParam("tags")String tags);
+    @Path("/recipes/{tags}")
+    @GET
+    String getRecipesByTags(@PathParam("tags")String tags);
 
     @Path("/recipes_by_name/{name}")
     @GET
@@ -66,7 +59,9 @@ public interface RestController {
     @GET
     String getRecipe(@PathParam("recipe_id") Long recipe_id);
 
-
+    @Path("/recipes")
+    @OPTIONS
+    Response createRecipe(String gsonPost);
 
 //    @Path("/recipes")
 //    @OPTIONS
