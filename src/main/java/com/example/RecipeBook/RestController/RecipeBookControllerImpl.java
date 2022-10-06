@@ -50,7 +50,7 @@ public class RecipeBookControllerImpl implements RestListener, RecipeBookControl
     }
 //public void connectToDB() {
 //    try {
-//        connection = DriverManager.getConnection("jdbc:mariadb://107.171.153.230:3306/recipe_db_v2", "root", "Roslyn06");
+//        connection = DriverManager.getConnection("jdbc:mariadb://localhost:3306/recipe_db_v2", "root", "Roslyn06");
 //    } catch (SQLException e) {
 //
 //    }
