@@ -10,15 +10,19 @@ import javax.ws.rs.core.Response;
 //@CrossOrigin
 @Path("/recipe_handler")
 public interface RestController {
-
+    /*
+    * This method gets recipes by user. For now it is hard coded to get recipes for user_id 1.
+    * It acts as getFeaturedRecipes which gets the recipes the user 1 (admin) has favourited.
+    * These will be the default recipes until login is implemented.
+     */
     @Path("/recipes")
     @Produces(MediaType.APPLICATION_JSON)
     @GET
-    String getRecipesByTags();
+    String getRecipesByUser();
 
     @Path("/recipes/{tags}")
     @GET
-    String getRecipesByTags(@PathParam("tags")String tags);
+    String getRecipesByUser(@PathParam("tags")String tags);
 
     @Path("/recipes_by_name/{name}")
     @GET
@@ -71,7 +75,7 @@ public interface RestController {
 //    @DELETE
 //    Response deleteRecipe(@PathParam("recipe_id") Long id);
 
-    /*
+    /* https://tite-poule-server.azurewebsites.net/recipe_book/services/recipe_handler/recipes
    GET recipes: localhost:8080/recipe_book/services/recipe_handler/recipes
     GET tags: localhost:8080/recipe_book/services/recipe_handler/tags
    GET recipe: localhost:8080/recipe_book/services/recipe_handler/recipe/1

@@ -60,15 +60,16 @@ public class RESTControllerImpl implements RestListener, RestController {
      */
 
     @Override
-    public String getRecipesByTags() {
+    public String getRecipesByUser() {
         String query = "SELECT * FROM FavouriteRecipesView WHERE user_id = ";
         RecipeBookReaderThread thread = new RecipeBookReaderThread();
         thread.start();
-        return thread.getRecipes(query);
+       // return thread.getRecipes(query);
+        return "TEST";
     }
 
     @Override
-    public String getRecipesByTags(String tags) {
+    public String getRecipesByUser(String tags) {
         String query = buildQueryByTags(tags);
         //     System.out.println(query);
         RecipeBookReaderThread thread = new RecipeBookReaderThread();
