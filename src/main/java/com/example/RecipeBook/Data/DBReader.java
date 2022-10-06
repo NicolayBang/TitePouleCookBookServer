@@ -18,7 +18,9 @@ import java.util.HashMap;
 public class DBReader {
     public static final CardJSONAdapter cardJsonAdapter = new CardJSONAdapter();
     public final Gson gsonGet = new GsonBuilder().registerTypeAdapter(Card.class, cardJsonAdapter).serializeNulls().create();
-    final Connection connection = RESTControllerImpl.connection;
+//    private final RESTControllerImpl recipeHandler = RESTControllerImpl.getInstance();
+
+    Connection connection = RESTControllerImpl.connection;
 
     public TagsCheckboxMenuView getTagsFromDB() {
         String sql = "SELECT * FROM TagsView";
