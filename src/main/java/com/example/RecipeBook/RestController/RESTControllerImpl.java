@@ -24,29 +24,37 @@ public class RESTControllerImpl implements RestListener, RestController {
     private static final RESTControllerImpl recipeHandler = new RESTControllerImpl();
 
 
-    public static Connection connection;
+    public static final Connection connection;
+    static {
+        try {
+            connection = DriverManager.getConnection
+                    ("jdbc:mariadb://iu51mf0q32fkhfpl.cbetxkdyhwsb.us-east-1.rds.amazonaws.com:3306/l9wg8442wjqiydnn",
+                            "h0t8uqbccnbr14zr", "a8s8zrqzymt4ny5a");
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    };
 
-
-    public RESTControllerImpl() {
-        connectToDB();
-    }
+//    public RESTControllerImpl() {
+//        connectToDB();
+//    }
 
     public static RESTControllerImpl getInstance() {
         return recipeHandler;
     }
     private long connections = 0;
 
-    public void connectToDB() {
-        try {
-            connection = DriverManager.getConnection
-                    ("jdbc:mariadb://iu51mf0q32fkhfpl.cbetxkdyhwsb.us-east-1.rds.amazonaws.com:3306/l9wg8442wjqiydnn",
-                            "h0t8uqbccnbr14zr", "a8s8zrqzymt4ny5a");
-            connections++;
-            System.out.println("Connected to DB -- connection #" + connections);;
-        } catch (SQLException e) {
-
-        }
-    }
+//    public void connectToDB() {
+//        try {
+//            connection = DriverManager.getConnection
+//                    ("jdbc:mariadb://iu51mf0q32fkhfpl.cbetxkdyhwsb.us-east-1.rds.amazonaws.com:3306/l9wg8442wjqiydnn",
+//                            "h0t8uqbccnbr14zr", "a8s8zrqzymt4ny5a");
+//            connections++;
+//            System.out.println("Connected to DB -- connection #" + connections);;
+//        } catch (SQLException e) {
+//
+//        }
+//    }
 //public void connectToDB() {
 //    try {
 //        connection = DriverManager.getConnection("jdbc:mariadb://localhost:3306/recipe_db_v2", "root", "Roslyn06");
