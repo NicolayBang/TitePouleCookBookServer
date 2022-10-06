@@ -34,7 +34,16 @@ public class RecipePostJSONAdapter implements JsonDeserializer<RecipePost> {
         recipePost.setDescription(jsonObject.get("description").getAsString());
         recipePost.setIngredients(jsonObject.get("ingredients").getAsJsonArray());
         recipePost.setInstructions(jsonObject.get("instructions").getAsJsonArray());
-        recipePost.setTags(jsonObject.get("tags").getAsJsonArray());// TODO implement this on the front end (hard coded for now)
+        //if(jsonObject.get("tags").getAsJsonArray()!=null){
+        try {
+            recipePost.setTags(jsonObject.get("tags").getAsJsonArray());
+        }catch (Exception e){recipePost.setTags(null);}
+
+       // }
+       // else {
+          //  recipePost.setTags(null);
+       // }
+        // TODO implement this on the front end (hard coded for now)
     //    recipePost.setImage_id(jsonObject.get("recipe_image").getAsLong());
         return recipePost;
     }
