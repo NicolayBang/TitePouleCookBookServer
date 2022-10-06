@@ -21,7 +21,7 @@ import java.sql.SQLException;
 public class RESTControllerImpl implements RestListener, RestController {
 
     private static final DBWriter dbWriter = new DBWriter();
-  //  private static final RESTControllerImpl recipeHandler = new RESTControllerImpl();
+    private static final RESTControllerImpl recipeHandler = new RESTControllerImpl();
 
 
     public static final Connection connection;
@@ -40,8 +40,8 @@ public class RESTControllerImpl implements RestListener, RestController {
 //        connectToDB();
 //    }
 
-    public RESTControllerImpl getInstance() {
-        return this;
+    public static RESTControllerImpl getInstance() {
+        return recipeHandler;
     }
     private long connections = 0;
 
