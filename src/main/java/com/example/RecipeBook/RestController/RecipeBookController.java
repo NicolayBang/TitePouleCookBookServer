@@ -13,7 +13,7 @@ public interface RecipeBookController {
 
    // @Path("/recipes")
     @Produces(MediaType.APPLICATION_JSON)
-    @OPTIONS
+    @GET
     String getFavouriteRecipeByUser();
 
     @Path("/recipes/{tags}")
