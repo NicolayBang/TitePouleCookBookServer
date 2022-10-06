@@ -26,6 +26,11 @@ public class RESTControllerImpl implements RestListener, RestController {
 
     public static final Connection connection;
     static {
+//        try {
+//            connection = DriverManager.getConnection("jdbc:mariadb://localhost:3306/recipe_db_v2", "root", "Roslyn06");
+//        } catch (SQLException e) {
+//            throw new RuntimeException(e);
+//        }
         try {
             connection = DriverManager.getConnection
                     ("jdbc:mariadb://iu51mf0q32fkhfpl.cbetxkdyhwsb.us-east-1.rds.amazonaws.com:3306/l9wg8442wjqiydnn",
@@ -35,6 +40,7 @@ public class RESTControllerImpl implements RestListener, RestController {
             throw new RuntimeException(e);
         }
     };
+
 
 //    public RESTControllerImpl() {
 //        connectToDB();
