@@ -18,10 +18,10 @@ import java.sql.SQLException;
 
 
 
-public class RESTControllerImpl implements RestListener, RestController {
+public class RecipeBookControllerImpl implements RestListener, RecipeBookController {
 
     private static final DBWriter dbWriter = new DBWriter();
-    private static final RESTControllerImpl recipeHandler = new RESTControllerImpl();
+  //  private static final RESTControllerImpl recipeHandler = new RESTControllerImpl();
 
 
     public static final Connection connection;
@@ -46,9 +46,9 @@ public class RESTControllerImpl implements RestListener, RestController {
 //        connectToDB();
 //    }
 
-    public static RESTControllerImpl getInstance() {
-        return recipeHandler;
-    }
+//   // public static RESTControllerImpl getInstance() {
+//        return recipeHandler;
+//    }
     private long connections = 0;
 
 //    public void connectToDB() {
@@ -84,8 +84,9 @@ public class RESTControllerImpl implements RestListener, RestController {
      * user_id as parameter. For now hardcode the user_id to 1.
      */
 
+
     @Override
-    public String getFavouredRecipesByUser() {
+    public String getFavouriteRecipeByUser() {
         String query = "SELECT * FROM FavouriteRecipesView WHERE user_id = ";
         RecipeBookReaderThread thread = new RecipeBookReaderThread();
         thread.start();
@@ -93,7 +94,7 @@ public class RESTControllerImpl implements RestListener, RestController {
     }
 
     @Override
-    public String getFavouredRecipesByUser(String tags) {
+    public String getFavouriteRecipeByUser(String tags) {
         String query = buildQueryByTags(tags);
         //     System.out.println(query);
         RecipeBookReaderThread thread = new RecipeBookReaderThread();
