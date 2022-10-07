@@ -1,7 +1,7 @@
 package com.example.RecipeBook.Threads;
 
 import com.example.RecipeBook.Data.DBReader;
-import com.example.RecipeBook.RestController.RESTControllerImpl;
+import com.example.RecipeBook.RestController.RecipeBookControllerImpl;
 import com.example.RecipeBook.Views.*;
 import org.springframework.stereotype.Service;
 
@@ -11,15 +11,15 @@ import java.util.ArrayList;
 @Service
 public class RecipeBookReaderThread extends Thread {
 
-    final RESTControllerImpl recipeHandler;
+    final RecipeBookControllerImpl recipeHandler;
     RecipeCardView recipeCardView;
     final Connection connection;
     final DBReader DBReader = new DBReader();
     private final DBReader dbReader = new DBReader();
 
     public RecipeBookReaderThread() {
-        recipeHandler = new RESTControllerImpl();
-        this.connection = RESTControllerImpl.connection;
+        recipeHandler = new RecipeBookControllerImpl();
+        this.connection = RecipeBookControllerImpl.connection;
     }
 
     //@Override

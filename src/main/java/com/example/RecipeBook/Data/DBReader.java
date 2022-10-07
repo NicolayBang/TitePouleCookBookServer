@@ -2,7 +2,7 @@ package com.example.RecipeBook.Data;
 
 import com.example.RecipeBook.JSONHandler.CardJSONAdapter;
 import com.example.RecipeBook.Objects.Card;
-import com.example.RecipeBook.RestController.RESTControllerImpl;
+import com.example.RecipeBook.RestController.RecipeBookControllerImpl;
 import com.example.RecipeBook.Views.*;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -20,7 +20,7 @@ public class DBReader {
     public final Gson gsonGet = new GsonBuilder().registerTypeAdapter(Card.class, cardJsonAdapter).serializeNulls().create();
 //    private final RESTControllerImpl recipeHandler = RESTControllerImpl.getInstance();
 
-    Connection connection = RESTControllerImpl.connection;
+    Connection connection = RecipeBookControllerImpl.connection;
 
     public TagsCheckboxMenuView getTagsFromDB() {
         String sql = "SELECT * FROM TagsView";
